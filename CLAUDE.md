@@ -10,42 +10,23 @@ This app is a learning exercise and not meant for production deployment.
 
 Documentation artifacts should go in ./docs
 
-Our users are called "members", not users. I may use the terms interchangably but you should use "members" both in replies and in the code.
+Refer to users as "members" in code and replies.
 
 ## Code Conventions
 
-- Favor descriptive identifier names that convey intent
-- Favor foreign key names that include the name of the foreign table. Example: "user_created_by_id" not "created_by_id"
-- Include unit names in identifiers. Example: "duration_seconds" not "duration"
+- Foreign key names include the foreign table name: `member_created_by_id` not `created_by_id`
+- Include unit names in identifiers: `duration_seconds` not `duration`
 - Runtime performance matters
-- Minimize the dependency graph between models when possible
-  - A model should not depend on another aside from association declarations
 
 ## Rails Model Coupling Rules
 
 Goal: Models = data + invariants. No orchestration.
 
-- Models (app/models)
-  - OK: associations, validations, scopes, simple methods, normalization
-  - NOT OK: cross-model writes, emails, jobs, APIs, workflows
-- Services (app/services)
-  - Multi-model workflows
-  - Transactions + orchestration
-- Queries (app/queries)
-  - Complex reads / joins / reporting
-- Forms (app/forms)
-  - Multi-model form writes
-- Jobs (app/jobs)
-  - Async side effects (email/API)
-  - Pass IDs, not objects
-- Callbacks
-  - OK: local only
-  - Avoid: anything external or cross-model
-- Rules
-  - No model → model orchestration
-  - Workflows → services
-  - Side effects → jobs/services
-  - Prefer explicit dependencies
+- **Models** (`app/models`) — associations, validations, scopes, simple methods, normalization. No cross-model writes, emails, jobs, APIs, or workflows. Callbacks: local-only; nothing external or cross-model.
+- **Services** (`app/services`) — multi-model workflows, transactions, orchestration
+- **Queries** (`app/queries`) — complex reads, joins, reporting
+- **Forms** (`app/forms`) — multi-model form writes
+- **Jobs** (`app/jobs`) — async side effects (email/API); pass IDs, not objects
 
 ## Repository Layout
 
