@@ -19,23 +19,23 @@ Our users are called "members", not users. I may use the terms interchangably bu
 - Include unit names in identifiers. Example: "duration_seconds" not "duration"
 - Runtime performance matters
 - Minimize the dependency graph between models when possible
-  - A model should not depend on another
+  - A model should not depend on another aside from association declarations
 
 ## Rails Model Coupling Rules
 
 Goal: Models = data + invariants. No orchestration.
 
-- Models (code/models)
+- Models (app/models)
   - OK: associations, validations, scopes, simple methods, normalization
   - NOT OK: cross-model writes, emails, jobs, APIs, workflows
-- Services (code/services)
+- Services (app/services)
   - Multi-model workflows
   - Transactions + orchestration
-- Queries (code/queries)
+- Queries (app/queries)
   - Complex reads / joins / reporting
-- Forms (code/forms)
+- Forms (app/forms)
   - Multi-model form writes
-- Jobs (code/jobs)
+- Jobs (app/jobs)
   - Async side effects (email/API)
   - Pass IDs, not objects
 - Callbacks
