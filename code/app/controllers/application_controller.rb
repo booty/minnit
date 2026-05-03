@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  helper_method :current_member
 
-  # Changes to the importmap will invalidate the etag for HTML responses
-  stale_when_importmap_changes
+  private
+
+  def current_member
+    @current_member ||= Member.find_by(id: session[:member_id]) if session[:member_id]
+  end
+
+  def require_login
+    redirect_to login_path, notice: "Please log in." unless current_member
+  end
 end
