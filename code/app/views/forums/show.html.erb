@@ -1,0 +1,46 @@
+<h1>
+  <%= @forum.name %>
+  <%= "[NSFW]" if @forum.nsfw %>
+</h1>
+<p>Created by <%= @forum.created_by_member.display_name %></p>
+
+<h2>Threads</h2>
+
+<% if @threads.empty? %>
+  <p>No threads yet.</p>
+<% else %>
+  <ul>
+    <% @threads.each do |thread| %>
+      <li>
+        <%= link_to thread.title, thread %>
+        — by <%= thread.member.display_name %>
+        at <%= thread.created_at.strftime("%Y-%m-%d %H:%M") %>
+        (<%= thread.replies.active.count %> replies)
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if current_member %>
+  <h2>New Thread</h2>
+  <%= form_with model: @post, url: forum_posts_path(@forum) do |f| %>
+    <% if @post.errors.any? %>
+      <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+    <%= f.submit "Post Thread" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "Log in", login_path %> to post a thread.</p>
+<% end %>

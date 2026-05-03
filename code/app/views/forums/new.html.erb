@@ -1,0 +1,21 @@
+<h1>New Forum</h1>
+
+<%= form_with model: @forum do |f| %>
+  <% if @forum.errors.any? %>
+    <ul>
+      <% @forum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :nsfw, "NSFW?" %>
+    <%= f.check_box :nsfw %>
+  </div>
+  <%= f.submit "Create Forum" %>
+<% end %>

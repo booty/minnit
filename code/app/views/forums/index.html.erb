@@ -1,0 +1,25 @@
+<h1>Forums</h1>
+
+<% if current_member %>
+  <%= link_to "New Forum", new_forum_path %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Forum</th>
+      <th>Created by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forums.each do |forum| %>
+      <tr>
+        <td>
+          <%= link_to forum.name, forum %>
+          <%= "[NSFW]" if forum.nsfw %>
+        </td>
+        <td><%= forum.created_by_member.display_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
