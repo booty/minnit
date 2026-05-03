@@ -1,0 +1,46 @@
+<% content_for :title, @post.title %>
+
+<p><%= link_to "← #{@post.forum.name}", @post.forum %></p>
+
+<h1><%= @post.title %></h1>
+<p>
+  Posted by <strong><%= @post.member.display_name %></strong>
+  at <%= @post.created_at.strftime("%Y-%m-%d %H:%M") %>
+</p>
+<p><%= @post.body %></p>
+
+<hr>
+
+<h2>Replies (<%= @replies.count %>)</h2>
+
+<% if @replies.empty? %>
+  <p>No replies yet.</p>
+<% end %>
+
+<% @replies.each do |reply| %>
+  <div>
+    <strong><%= reply.member.display_name %></strong>
+    <span><%= reply.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+    <p><%= reply.body %></p>
+  </div>
+<% end %>
+
+<% if current_member %>
+  <h2>Post a Reply</h2>
+  <%= form_with model: @reply, url: post_replies_path(@post) do |f| %>
+    <% if @reply.errors.any? %>
+      <ul>
+        <% @reply.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div>
+      <%= f.label :body, "Your reply" %>
+      <%= f.text_area :body %>
+    </div>
+    <%= f.submit "Post Reply" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "Log in", login_path %> to post a reply.</p>
+<% end %>
