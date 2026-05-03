@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bin/rails test *)",
+      "Bash(bin/rails generate *)",
+      "Bash(bin/rails destroy *)",
+      "Bash(bin/rails db:rollback *)",
+      "Bash(bin/rails db:seed *)",
+      "Bash(bin/rails db:schema:load *)",
+      "Bash(bin/rails db:create *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git checkout *)",
+      "Bash(git switch *)",
+      "Bash(git stash *)",
+      "Bash(git merge *)"
+    ]
+  }
+}
