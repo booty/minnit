@@ -1,0 +1,27 @@
+<h1>Sign up</h1>
+
+<%= form_with model: @member, url: signup_path do |f| %>
+  <% if @member.errors.any? %>
+    <ul>
+      <% @member.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :display_name %>
+    <%= f.text_field :display_name %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <%= f.submit "Sign up" %>
+<% end %>
+
+<p>Already have an account? <%= link_to "Log in", login_path %></p>
